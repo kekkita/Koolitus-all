@@ -1,0 +1,27 @@
+.nupp {
+  background-color: green;
+  color: rgb(180, 173, 173) ;
+  }
+  .nupp:hover {
+   height: 50px;
+    }
+  .nupp:active{
+cursor: grab;
+    }
+
+.lorem{
+  color: blue;
+  font-style: italic;
+}
+    .lorem:hover{
+      font-size: 24px;
+    }
+
+    .pilt{
+      height: 200px;
+      display: block;
+     margin-left: auto;
+    }
+
+
+    body{background-color: beige;}
