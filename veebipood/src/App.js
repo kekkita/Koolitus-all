@@ -9,6 +9,8 @@
 
 import './App.css';
 import { Link, Route, Routes } from "react-router-dom"
+import {useState} from "react";
+import { useRef } from 'react';
 import Avaleht from './Pages/Avaleht';
 import LisaToode from './Pages/LisaToode';
 import Meist from './Pages/Meist';
@@ -16,8 +18,7 @@ import Ostukorv from './Pages/Ostukorv';
 import Seaded from './Pages/Seaded';
 import Poed from './Pages/Poed';
 import HaldaTooteid from './Pages/HaldaTooteid';
-import {useState} from "react";
-import { useRef } from 'react';
+import MuudaToode from './Pages/MuudaToode';
 
 
 function App() {
@@ -90,7 +91,7 @@ function App() {
 <Route path="seaded" element={<Seaded/>} />
 <Route path="poed" element={<Poed/>} />
 <Route path="halda" element={<HaldaTooteid/>} />
-{/* <Route path="muuda" element={<MuudaTooteid/>} /> */}
+<Route path="muuda/:index" element={<MuudaToode/>} />
 </Routes>
 
 <div></div>

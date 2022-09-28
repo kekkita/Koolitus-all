@@ -11,7 +11,6 @@ import App from './App';
 // Firebase'i --- apiKey: "AIzaSyDL333DAxuu7JiMz-WiFufaV3mb7ezBIYQ",
 
 import { BrowserRouter } from 'react-router-dom';
-import { Link, Route, Routes } from "react-router-dom"
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
