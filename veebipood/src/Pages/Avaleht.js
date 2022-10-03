@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function Avaleht() {
     const [kogus, uuendaKogus] = useState (0);
@@ -38,10 +39,12 @@ function Avaleht() {
           <span> {kogus} </span>
           <button onClick={suurenda}>+</button> 
 
-        {tooted.map(element => 
-        <div key = {element}>
-            <div>{element}</div>
-            <button onClick={() => lisaOstukorvi(element)}>Lisa ostukorvi</button>
+        {tooted.map((element,index) => 
+            <div key = {element}>
+                <Link to={"/toode/" + index}>  {/* // suunab mind lehele, kus on /toode/järjekorranumber */}
+                    <div>{element.nimi}</div>
+                </Link>
+                <button onClick={() => lisaOstukorvi(element)}>Lisa ostukorvi</button>
             </div>)}
 
 

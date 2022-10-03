@@ -1,1 +1,20 @@
-["Mustamäe ", "Õismäe ", "Kristiine ", "Lasnamae ", "Põhja-Tallinn ", "Kesklinn "]
+[
+    {
+        "nimetus": "Kristiine",
+        "aeg": "9-22",
+        "aadress": "Tulika 7b",
+        "kommentaarid": "komm 1"
+    },
+    {
+        "nimetus": "Mustamäe",
+        "aeg": "8-20",
+        "aadress": "Tammsaare tee 2",
+        "kommentaarid": "kommentaar 2"
+    },
+    {
+        "nimetus": "Põhja-Tallinn",
+        "aeg": "11-00",
+        "aadress": "Niine 12",
+        "kommentaarid": "KOMM 3"
+    }
+]

@@ -1,12 +1,13 @@
 
 import { Routes } from 'react-router-dom';
+import {Link, Route} from 'react-router-dom';
 import './App.css';
 import Avaleht from './Pages/Avaleht';
 import Kontakt from './Pages/Kontakt';
 import Meist from './Pages/Meist';
 import Uudised from './Pages/Uudised';
 import LisaUudis from './Pages/LisaUudis';
-import {Link, Route} from 'react-router-dom';
+import HaldaUudiseid from './Pages/HaldaUudiseid';
 
 
 function App() {
@@ -36,6 +37,9 @@ function App() {
 <Link to="/lisauudis">
   <button className="nupp">Lisa uudis</button>
 </Link>
+<Link to="/halda">
+  <button className="nupp">Halda uudiseid</button>
+</Link>
 
 </div>
 
@@ -46,6 +50,8 @@ function App() {
       <Route path="Kontakt" element={<Kontakt/>} />
       <Route path="Meist" element={<Meist/>} />
       <Route path="lisauudis" element={<LisaUudis/>} />
+      <Route path="halda" element={<HaldaUudiseid/>} />
+      {/* <Route path="muuda/:index" element={<MuudaUudis/>} /> */}
       </Routes>
     </div>
   );

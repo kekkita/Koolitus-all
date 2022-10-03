@@ -6,7 +6,11 @@ import poedFailist from "../poed.json"
 function Poed() {
 // muutuja, mille v22rtuseks on array (v22rtuste kogumik), iga  1 element on eristatud komaga
     const [poed, uuendaPoed] = useState(poedFailist)
-    const poodRef = useRef();  
+    const poodRef = useRef();
+    const aegRef = useRef();  
+    const aadressRef = useRef();  
+    const kommentaaridRef = useRef();  
+      
 
     const sorteeri = () => {
         poed.sort(); //Javascripti sissekirjutatud funktsioon -> sorteeri A-Z
@@ -19,7 +23,13 @@ function Poed() {
     }
 
     const lisaPood = () => {
-        poed.push(poodRef.current.value);
+        const uusPood = {
+            "nimetus": poodRef.current.value,
+            "aeg": aegRef.current.value,
+            "aadress": aadressRef.current.value,
+            "kommentaarid": kommentaaridRef.current.value
+        }
+        poed.push(uusPood);
         uuendaPoed(poed.slice());  //.slice() -- teeb koopia EHK kustutab esialgse m2lukoha
     }
 
@@ -67,6 +77,12 @@ function Poed() {
         <br/> 
     <label>Uus pood</label> <br/>
     <input ref={poodRef} type="text" /> <br/>
+    <label>Lahtiolekuaeg</label> <br/>
+    <input ref={aegRef} type="text" /> <br/>
+    <label>Aadress</label> <br/>
+    <input ref={aadressRef} type="text" /> <br/>
+    <label>Kommentaarid</label> <br/>
+    <input ref={kommentaaridRef} type="text" /> <br/>
     <button onClick={lisaPood}>Lisa uus pood</button> <br/>
 
 {/* .map on arrayde kuvamiseks HTMLis, siis teen selle funktsionaalsuse, mis on sisus tskkel
@@ -77,7 +93,8 @@ Elemendid on need ["Mustamäe", "Õismäe", "Kristiine", "Lasnamae", "Põhja-Tal
 
 
         {poed.map((pood,index) => 
-            <div key={pood}>{pood}
+            <div key={index}>
+                {pood.nimetus}  {pood.aeg} {/* 'nimetus' & 'aeg' tuleb poed.js lehel olevast v6tmest */}
                 <button onClick={() => kustuta(index)}>X</button>  
                 <button onClick={() => vaata(pood)}>Vaata</button>  
             </div>) } 
@@ -85,7 +102,7 @@ Elemendid on need ["Mustamäe", "Õismäe", "Kristiine", "Lasnamae", "Põhja-Tal
         <br/>
     <div>Poode on {poed.length} tk</div>
         <br/>
-    <div>Sinu valitud pood: {valitudPood}</div>
+    <div>Sinu valitud pood: {valitudPood.nimetus}</div>
         <br/>
     <label>Järjekorranumber</label>  
         <input ref={indexRef} type="text" />  <br/> 
