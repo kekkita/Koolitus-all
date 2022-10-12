@@ -1,5 +1,5 @@
-import {useState} from 'react'
-// import { Link } from 'react-router-dom';
+import {useState} from 'react';
+import { Link } from 'react-router-dom';
 
 function HaldaUudiseid() {
 
@@ -16,14 +16,16 @@ function HaldaUudiseid() {
     return ( 
     <div className="uudispage">
 
-        {uudised.map((element, index) => 
+        <div>{uudised.map((element, index) => 
         <div key = {element}>
             <br />
-            <div>{element}</div> <button onClick={() => kustuta(index)}> X</button>
-            {/* <Link to={"/muuda/" + index}> */}
-            {/* <button >Muuda</button> */}
-            {/* </Link> */}
+            <div>{element}</div> 
+            <button onClick={() => kustuta(index)}> X</button>
+            <Link to={"/muudaUudis/" + index}>
+            <button>Muuda</button>
+            </Link>
             </div>)}
+            </div>
 
 
     </div>);

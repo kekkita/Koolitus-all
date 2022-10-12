@@ -1,3 +1,4 @@
+import {Link} from "react-router-dom";
 
 function Uudised() {
 
@@ -11,10 +12,12 @@ function Uudised() {
                  {uudised < 1 && <div className="pagetext">Hetkel uudiseid ei ole, lisame õige pea.</div>}
             </div>
                 <br/>
-            {uudised.map(element => 
+            {uudised.map((element,index) => 
                     <div className="pagetext" key = {element}><br/><br/>
-                        <div >{element}</div></div>)}
-            
+                        <Link to={"/uudis/" + index}>
+                        <div >{element}</div></Link>
+                        </div>)}
+                        
 
     </div>);
 }

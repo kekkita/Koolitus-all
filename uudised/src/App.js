@@ -8,6 +8,8 @@ import Meist from './Pages/Meist';
 import Uudised from './Pages/Uudised';
 import LisaUudis from './Pages/LisaUudis';
 import HaldaUudiseid from './Pages/HaldaUudiseid';
+import YksikUudis from './Pages/YksikUudis';
+import MuudaUudis from './Pages/MuudaUudis';
 
 
 function App() {
@@ -51,7 +53,8 @@ function App() {
       <Route path="Meist" element={<Meist/>} />
       <Route path="lisauudis" element={<LisaUudis/>} />
       <Route path="halda" element={<HaldaUudiseid/>} />
-      {/* <Route path="muuda/:index" element={<MuudaUudis/>} /> */}
+      <Route path="uudis/:index" element={<YksikUudis/>} />
+      <Route path="muudaUudis/:index" element={<MuudaUudis/>} />
       </Routes>
     </div>
   );
