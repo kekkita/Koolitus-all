@@ -2,43 +2,50 @@ import productsFromFile from "../data/products.json";
 import Button from "react-bootstrap/Button";
 import Pagination from "react-bootstrap/Pagination";
 import { useState } from "react";
+import styles from "../css/Cart.module.css";
 
 
 function Products() {
 
-    const [categoryProducts, setCategoryProducts] = useState(productsFromFile);
+    const [categoryProducts, setCategoryProducts] = useState(productsFromFile.slice());
     const [products, setProducts] = useState(productsFromFile.slice(0,20));
 
     const categories = [...new Set(productsFromFile.map(element => element.category))];
 
     const sortAZ = () => {
-        products.sort((a,b) => a.name.localeCompare(b.name));
-        setProducts(products.slice());
+        categoryProducts.sort((a,b) => a.name.localeCompare(b.name));
+        setProducts(categoryProducts.slice(0,20));
+        setActivePage(1);
     }
 
     const sortZA = () => {
-        products.sort((a,b) => b.name.localeCompare(a.name));
-        setProducts(products.slice());
+        categoryProducts.sort((a,b) => b.name.localeCompare(a.name));
+        setProducts(categoryProducts.slice(0,20));
+        setActivePage(1);
     }
 
     const sortPriceAsc = () => {
-        products.sort((a,b) => a.price - b.price);
-        setProducts(products.slice());
+        categoryProducts.sort((a,b) => a.price - b.price);
+        setProducts(categoryProducts.slice(0,20));
+        setActivePage(1);
     }
 
     const sortPriceDesc = () => {
-        products.sort((a,b) => b.price - a.price);
-        setProducts(products.slice());
+        categoryProducts.sort((a,b) => b.price - a.price);
+        setProducts(categoryProducts.slice(0,20));
+        setActivePage(1);
     }
 
     const sortIdAsc = () => {
-        products.sort((a,b) => a.id - b.id);
-        setProducts(products.slice());
+        categoryProducts.sort((a,b) => a.id - b.id);
+        setProducts(categoryProducts.slice(0,20));
+        setActivePage(1);
     }
 
     const sortIdDesc = () => {
-        products.sort((a,b) => b.id - a.id);
-        setProducts(products.slice());
+        categoryProducts.sort((a,b) => b.id - a.id);
+        setProducts(categoryProducts.slice(0,20));
+        setActivePage(1);
     }
 
     const showByCategory = (categoryClicked) => {
@@ -59,6 +66,19 @@ function Products() {
         setProducts(categoryProducts.slice(pageClicked*20-20, pageClicked*20));
     }
 
+    const addToCart = (productClicked) => {
+        let cartLS = localStorage.getItem("cart");
+        cartLS = JSON.parse(cartLS) || [];
+        const index = cartLS.findIndex(element => element.product.id === productClicked.id);
+        if (index === -1) {
+            cartLS.push({product: productClicked, quantity:1});
+        } else {
+
+            cartLS[index].quantity = cartLS[index].quantity + 1 ;
+        }
+        cartLS = JSON.stringify(cartLS);
+        localStorage.setItem("cart", cartLS);
+    }
 
     return ( 
     <div>
@@ -81,12 +101,14 @@ function Products() {
         <button onClick={sortPriceDesc}>Hind kahanevale</button>
         <button onClick={sortIdAsc}>Vanemad enne</button>
         <button onClick={sortIdDesc}>Uuemad enne</button>
+        <br/>
+        <br/>
         {products.map(element =>
-            <div key={element.id}>       {/* // react tahab teada, mis on elemendi unikaalsuse tunnus - error konsoolis "each child in _____ a list should have a unique key prop"*/}
+            <div className={styles.product} key={element.id}>       {/* // react tahab teada, mis on elemendi unikaalsuse tunnus - error konsoolis "each child in _____ a list should have a unique key prop"*/}
             <img src={element.image} alt=""/>
             <div>{element.name}</div>
-            <div>{element.price}$</div>
-            <Button variant="success">Lisa ostukorvi</Button>
+            <div>{element.price} €</div>
+            <Button onClick={() => addToCart(element)} variant="success">Lisa ostukorvi</Button>
             </div>
         )}
     </div> );
