@@ -1,16 +1,33 @@
 import productsFromFile from "../data/products.json";
 import Button from "react-bootstrap/Button";
 import Pagination from "react-bootstrap/Pagination";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "../css/Cart.module.css";
-
+import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
 
 function Products() {
 
-    const [categoryProducts, setCategoryProducts] = useState(productsFromFile.slice());
-    const [products, setProducts] = useState(productsFromFile.slice(0,20));
+    const [categoryProducts, setCategoryProducts] = useState([]);
+    const [products, setProducts] = useState([]);
+    const [categories, setCategories] = useState([]);
 
-    const categories = [...new Set(productsFromFile.map(element => element.category))];
+    useEffect(() => {     // kui lehele tulen, siis koheselt (mitte nupulevajutusega) tehakse API päring teise rakendusse, nt Omniva pakiautomaadid
+        const api = new WooCommerceRestApi({
+            url: "http://localhost/wordpress",
+            consumerKey: "ck_69ee61dcac64fb666f2c46d9af05e9eeac5c2e22",
+            consumerSecret: "cs_d5ee43a051b79190a76745cb03b9e6975b041fa0",
+            version: "wc/v3"
+          });
+          api.get("products", {
+            per_page: 20, // 20 products per page
+          })
+            .then((response) => {
+              // Successful request
+              setProducts(response.data);
+              setCategoryProducts(response.data);
+              setCategories([...new Set(response.data.map(element => element.categories[0].name))])
+            })
+    }, []);
 
     const sortAZ = () => {
         categoryProducts.sort((a,b) => a.name.localeCompare(b.name));
@@ -105,7 +122,7 @@ function Products() {
         <br/>
         {products.map(element =>
             <div className={styles.product} key={element.id}>       {/* // react tahab teada, mis on elemendi unikaalsuse tunnus - error konsoolis "each child in _____ a list should have a unique key prop"*/}
-            <img src={element.image} alt=""/>
+            { element.images[0] && <img src={element.image[0].src} alt=""/>}
             <div>{element.name}</div>
             <div>{element.price} €</div>
             <Button onClick={() => addToCart(element)} variant="success">Lisa ostukorvi</Button>
