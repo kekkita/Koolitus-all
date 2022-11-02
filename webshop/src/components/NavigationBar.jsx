@@ -21,9 +21,9 @@ function NavigationBar() {
             <Nav.Link as={Link} to="/kontakt">{t('nav.contact')}</Nav.Link>
             <Nav.Link as={Link} to="/ostukorv">{t('nav.cart')}</Nav.Link>
           </Nav>
-          <img className="lang" onClick={() => changeLang("ee")} src={require("../images/ee.png")} alt=""/>
-          <img className="lang" onClick={() => changeLang("en")} src={require("../images/en.png")} alt=""/>
-          <img className="lang" onClick={() => changeLang("fin")} src={require("../images/fin.png")} alt=""/>
+          <img className="lang" onClick={() => changeLang("ee")} src={"/images/ee.png"} alt=""/>
+          <img className="lang" onClick={() => changeLang("en")} src={"/images/en.png"} alt=""/>
+          <img className="lang" onClick={() => changeLang("fin")} src={"/images/fin.png"} alt=""/>
         </Container>
       </Navbar>
     );

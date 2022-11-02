@@ -39,17 +39,17 @@ function Cart() {
         localStorage.setItem("cart", JSON.stringify(cart));
     }
 
-    const sendOrder = () => {
-        console.log(pmRef.current.value);
-        console.log(cart);
-    }
+    // const sendOrder = () => {
+    //     console.log(pmRef.current.value);
+    //     console.log(cart);
+    // }
 
     const pay = () => {
 
         const data = {
                 "api_username": "92ddcfab96e34a5f",
                 "account_name": "EUR3D1",
-                "amount": calculateCartSum,
+                "amount": calculateCartSum(),
                 "order_reference": Math.random() * 999999,
                 "nonce": "a9b7f7e" + Math.random() * 999999 + new Date(),
                 "timestamp": new Date(),
@@ -72,16 +72,16 @@ function Cart() {
             <br/>
             {cart.map((element, index) =>
                 <div key={index} className={styles.product}>
-                    <img className={styles.image} src={element.product.image} alt="" />
+                    { element.product.images[0] && <img className={styles.image} src={element.product.images[0].src} alt=""/>}
                     <div className={styles.name}>{element.product.name}</div>
                     <div className={styles.price}>{element.product.price} €</div>
                     <div className={styles.quantity}>
-                        <img className={styles.button} onClick={() => decreaseQuantity(index)} src={require("../images/minus.png")} alt=""/>
+                        <img className={styles.button} onClick={() => decreaseQuantity(index)} src={"/images/minus.png"} alt=""/>
                         <div>{element.quantity} tk</div>
-                        <img className={styles.button} onClick={() => increaseQuantity(index)} src={require("../images/plus.png")} alt=""/>
+                        <img className={styles.button} onClick={() => increaseQuantity(index)} src={"/images/plus.png"} alt=""/>
                     </div>
                     <div className={styles.sum}>{( element.product.price * element.quantity).toFixed(2)} €</div>
-                    <img className={styles.button} onClick={() => remove(index)} src={require("../images/delete.png")} alt=""/>
+                    <img className={styles.button} onClick={() => remove(index)} src={"/images/delete.png"} alt=""/>
                 </div>)}
 
                 { cart.length > 0 && 

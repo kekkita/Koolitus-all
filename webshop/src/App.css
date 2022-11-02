@@ -13,3 +13,9 @@
   width: 50%;
   border-radius: 20px;
 }
+
+.productImage {
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+}
