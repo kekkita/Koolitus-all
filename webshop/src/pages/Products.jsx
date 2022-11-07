@@ -13,11 +13,11 @@ function Products() {
     useEffect(() => {     // kui lehele tulen, siis koheselt (mitte nupulevajutusega) tehakse API päring teise rakendusse, nt Omniva pakiautomaadid
         const api = new WooCommerceRestApi({
             url: "http://localhost/wordpress",
-            consumerKey: "ck_69ee61dcac64fb666f2c46d9af05e9eeac5c2e22",
-            consumerSecret: "cs_d5ee43a051b79190a76745cb03b9e6975b041fa0",
+            consumerKey: "ck_cdc8e6a48c74200ea246c8b34fa47ffc3b3605d2",
+            consumerSecret: "cs_d1272f2404fe5045fac4fdd46846216e5304cab0",
             version: "wc/v3",
             axiosConfig: {
-                headers: {}
+                headers: {},
               }
           });
           api.get("products", {

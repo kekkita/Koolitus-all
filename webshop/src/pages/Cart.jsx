@@ -2,6 +2,8 @@ import { useRef } from "react";
 import { useEffect, useState } from "react";
 import styles from "../css/Cart.module.css";
 import { Link } from "react-router-dom";
+import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
+// headless wordpress / headless woocommerce / headless cms
 
 function Cart() { 
     const [cart, setCart] = useState ( JSON.parse(localStorage.getItem("cart")) || [] );
@@ -39,18 +41,36 @@ function Cart() {
         localStorage.setItem("cart", JSON.stringify(cart));
     }
 
-    // const sendOrder = () => {
-    //     console.log(pmRef.current.value);
-    //     console.log(cart);
-    // }
+    const sendOrder = () => {
+        console.log(pmRef.current.value);
+        console.log(cart);
+        const api = new WooCommerceRestApi({
+            url: "http://localhost/wordpress",
+            consumerKey: "ck_cdc8e6a48c74200ea246c8b34fa47ffc3b3605d2",
+            consumerSecret: "cs_d1272f2404fe5045fac4fdd46846216e5304cab0",
+            queryStringAuth: true,
+            version: "wc/v3",
+            axiosConfig: {
+                headers: {'Content-Type': 'application/json'},
+              }
+          });
+                            // noole järel välimised loogelised sulud on funktsiooni tähistus   => *{* return {}*}*
+    const woocommerceCart = cart.map(element => { 
+        return {product_id: element.product.id, quantity: element.quantity}
+        });
+        console.log (woocommerceCart)
+    api.post("orders", {"line_items":woocommerceCart})
+    // .then(res => console.log(res))
+    .then(res => pay(res.data.id))
+    
+}
 
-    const pay = () => {
-
+    const pay = (orderID) => {
         const data = {
                 "api_username": "92ddcfab96e34a5f",
                 "account_name": "EUR3D1",
                 "amount": calculateCartSum(),
-                "order_reference": Math.random() * 999999,
+                "order_reference": orderID,
                 "nonce": "a9b7f7e" + Math.random() * 999999 + new Date(),
                 "timestamp": new Date(),
                 "customer_url": "https://drutoopia.web.app"
@@ -95,7 +115,7 @@ function Cart() {
                 <option key={element.NAME}>{element.NAME}</option>)}
                 </select>
                 <br/><br/>
-                <button onClick={pay} >Vormista tellimus</button>
+                <button onClick={sendOrder} >Vormista tellimus</button>
                 </div>}
 
                 {cart.length === 0 && 
